@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.4'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+println ':aop'
+
+group = 'it1.aop.homework'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+springBoot {
+    mainClass = 'it1.aop.homework.Main'
+    buildInfo()
+}
+jar {
+    enabled = false
+}
+
+dependencies {
+
+    implementation('org.springframework.boot:spring-boot-starter-aop')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+
+    implementation('org.postgresql:postgresql:42.7.3')
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.boot:spring-boot-testcontainers')
+    testImplementation('org.testcontainers:testcontainers')
+    testImplementation('org.testcontainers:postgresql')
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+}
+
+test {
+    useJUnitPlatform()
+}

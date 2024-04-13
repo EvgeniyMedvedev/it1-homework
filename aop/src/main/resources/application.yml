@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: 'jdbc:postgresql://localhost:54321/metrics'
+    driverClassName : org.postgresql.Driver
+    username: user
+    password: user
+    initialization-mode: ALWAYS
+    data:classpath*:1_init.sql:

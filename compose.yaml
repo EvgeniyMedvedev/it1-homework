@@ -1,0 +1,22 @@
+services:
+  timescaledb:
+    image: "timescale/timescaledb:latest-pg16"
+    ports:
+      - "54321:5432"
+    environment:
+      - PGDATA=/var/lib/postgresql/data/timescaledb
+      - POSTGRES_DB=metrics
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=user
+    volumes:
+      - ./aop/1_init.sql:/docker-entrypoint-initdb.d/1_init.sql
+  aop:
+    build:
+      context: ./aop
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://timescaledb:5432/metrics
+    depends_on:
+      - timescaledb
